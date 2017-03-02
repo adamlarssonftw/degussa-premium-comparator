@@ -1,2 +1,2 @@
-# node-project-seed
-Basic setup for node projects using ts with tslint and rxjs.
+# degussa-premium-comparator
+Scrapes Degussa Edelmetalle's price list and makes comparisons based on buy/sell-spread and premiums.
