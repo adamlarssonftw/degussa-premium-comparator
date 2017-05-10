@@ -10,7 +10,7 @@ export class Calculator {
 
   private static calculateSpread(item: IItem): number {
     let diff = parseFloat(item.buy) - parseFloat(item.sell);
-    item.spread = Math.round((diff / parseFloat(item.buy)) * 100);
-    return item.spread;
+    item.spread_percent = Math.round((diff / parseFloat(item.buy)) * 100);
+    return item.spread_percent;
   }
 }
