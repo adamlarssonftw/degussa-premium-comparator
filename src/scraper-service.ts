@@ -40,9 +40,9 @@ export class Scraper {
 
     targetProperties.forEach((property) => {
       let spot = this.makeSpot(property);
-      let [price] = spotObj[property].split(" ");
-      let gramPrice = parseFloat(this.formatCurrencyToDecimal(price));
-      spot.gramPrice = Calculator.troyOzToGram(gramPrice);
+      let [ozPrice] = spotObj[property].split(" ");
+      let ozPriceFormatted = parseFloat(this.formatCurrencyToDecimal(ozPrice));
+      spot.gramPrice = Calculator.troyOzToGram(ozPriceFormatted);
       spots[spot.metal] = spot;
     });
 
