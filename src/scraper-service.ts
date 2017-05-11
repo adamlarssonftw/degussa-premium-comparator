@@ -1,6 +1,7 @@
 import { Observable, Observer } from "rxjs";
 import { RxHttpRequest } from "rx-http-request";
-import { IItem, ISpot } from "./interfaces";
+import { IItem, ISpot, ISpotResponseRaw } from "./interfaces";
+import { Calculator } from "./calculator-service";
 
 let cheerio = require("cheerio");
 
@@ -11,7 +12,7 @@ export class Scraper {
     return Observable.create((o: Observer<string>) => {
       return RxHttpRequest.get(url).subscribe(
         (data) => {
-          if(data.response.statusCode === 200){
+          if (data.response.statusCode === 200) {
             o.next(data.body);
             o.complete();
           }
@@ -25,40 +26,27 @@ export class Scraper {
     this.$ = cheerio.load(html);
   };
 
-  public getSpotFromAPI(): any[] {
-    let endpoint = "https://www.gold.de/ajax/data.php?";
-    let params = {
-      func: "json&",
-      _: this.generateTimestamp(),
+  public makeSpot(targetProperty: string): ISpot {
+    let [au, metal, currency] = targetProperty.split("_");
+
+    return {
+      metal: metal,
+      currency: currency,
     };
-
-    let url = endpoint;
-    for (let p in params) {
-      url += p + "=" + params[p];
-    }
-
-    let spots = [];
-
-    return this.attemptRequest(url).subscribe((res) => {
-       let targetProperties = ["au_gold_usd", "au_silber_usd", "au_platin_usd"];
-
-       targetProperties.forEach((prop) => {
-          let propSplit = prop.split("_");
-
-          spots.push({
-            metal: propSplit[1],
-            // oz: this.formatCurrencyToDecimal(res[prop].split(" ")[0]),
-            currency: propSplit[2]
-          });
-       });
-
-      return spots;
-    });
   }
 
-  private generateTimestamp() {
-    let d = new Date();
-    return d.getTime();
+  public getSpotPrices(spotObj: ISpotResponseRaw, targetProperties: string[]) {
+    let spots = [];
+
+    targetProperties.forEach((property) => {
+      let spot = this.makeSpot(property);
+      let [price] = spotObj[property].split(" ");
+      let gramPrice = parseFloat(this.formatCurrencyToDecimal(price));
+      spot.gramPrice = Calculator.troyOzToGram(gramPrice);
+      spots.push(spot);
+    });
+
+    return spots;
   }
 
   public getItemsForSale(tableId: string): IItem[] {
