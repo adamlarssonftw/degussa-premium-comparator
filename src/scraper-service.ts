@@ -46,15 +46,7 @@ export class Scraper {
 
     let itemArr = [];
 
-    let counter = 0;
     for (let row of tableRows) {
-
-      if (counter === 0) {
-        console.log('row', row.children[0]);
-        counter++;
-      }
-
-      //Todo: kom pa nat bra satt att fixa denna rora.
       let [sell, s_currency] = row.children[3].children[0].data.split(" ");
       let [buy, b_currency] = row.children[4].children[0].data.split(" ");
 
