@@ -16,10 +16,6 @@ class Main {
     private priceDataSourceURL = "http://www.degussa-goldhandel.de/infothek/preisliste/";
     private propertiesOfInterest = ["au_gold_eur", "au_silber_eur", "au_platin_eur", "au_palladium_eur"];
 
-    private paramsArr = [
-        Utils.generateTimestamp()
-    ];
-
     private scraper: Scraper;
 
     constructor() {
@@ -33,8 +29,7 @@ class Main {
             //    console.log(Calculator.sortBySpread(this.goldItems).slice(0, 10));
         });
 
-        let [timestamp] = this.paramsArr;
-        let timestampedURL = `${this.spotPricesURL}func=json&_=${timestamp}`;
+        let timestampedURL = `${this.spotPricesURL}func=json&_=${Utils.generateTimestamp()}`;
 
         this.scraper.attemptRequest(timestampedURL).subscribe((response: string) => {
             let responseObject = JSON.parse(response);
