@@ -2,8 +2,8 @@ import { Observable, Observer } from "rxjs";
 import { RxHttpRequest } from "rx-http-request";
 import { Calculator } from "./calculator-service";
 import { Scraper } from "./scraper-service";
-import { IItem, ISpot } from "./interfaces";
-import { Utils } from "./utils";
+import { IItem } from "./interfaces";
+import { Utils } from "./utils/index";
 
 class Main {
     private goldItems: IItem[];

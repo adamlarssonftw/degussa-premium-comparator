@@ -8,12 +8,6 @@ export interface IItem {
     spread_percent?: number;
 }
 
-export interface ISpot {
-    metal?: string;
-    gramPrice?: number;
-    currency?: string;
-}
-
 export interface ISpotResponseRaw {
     au_gold_eur: string;
     au_silber_eur: string;
