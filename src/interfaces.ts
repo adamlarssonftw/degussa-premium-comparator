@@ -10,8 +10,13 @@ export interface IItem {
 
 export interface ISpot {
     metal?: string;
-    oz?: string;
-    kg?: string;
-    gram?: string;
+    gramPrice?: number;
     currency?: string;
+}
+
+export interface ISpotResponseRaw {
+    au_gold_eur: string;
+    au_silber_eur: string;
+    au_platin_eur: string;
+    au_palladium_eur: string;
 }

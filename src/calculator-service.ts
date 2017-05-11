@@ -13,4 +13,8 @@ export class Calculator {
     item.spread_percent = Math.round((diff / parseFloat(item.buy)) * 100);
     return item.spread_percent;
   }
+
+  public static troyOzToGram(oz: number) {
+    return oz / 31.1034768;
+  }
 }
