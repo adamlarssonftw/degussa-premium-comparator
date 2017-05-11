@@ -9,7 +9,7 @@ class Main {
     private goldItems: IItem[];
     private silverItems: IItem[];
     private platinumItems: IItem[];
-    private spotPrices: ISpot[];
+    private spotPrices: any;
 
     // private spotPricesURL = "https://www.gold.de/kurse/";
     private spotPricesURL = "https://www.gold.de/ajax/data.php?";

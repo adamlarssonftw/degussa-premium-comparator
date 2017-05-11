@@ -36,14 +36,14 @@ export class Scraper {
   }
 
   public getSpotPrices(spotObj: ISpotResponseRaw, targetProperties: string[]) {
-    let spots = [];
+    let spots = {};
 
     targetProperties.forEach((property) => {
       let spot = this.makeSpot(property);
       let [price] = spotObj[property].split(" ");
       let gramPrice = parseFloat(this.formatCurrencyToDecimal(price));
       spot.gramPrice = Calculator.troyOzToGram(gramPrice);
-      spots.push(spot);
+      spots[spot.metal] = spot;
     });
 
     return spots;
